@@ -23,3 +23,38 @@ historical_tuition <- readr::read_csv('https://raw.githubusercontent.com/rfordat
 
 diversity_school <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/diversity_school.csv')
 ```
+
+
+#Exploring Salary Potential
+
+Do stem majors end up making more?
+```{r}
+ggplot(aes(stem_percent, mid_career_pay), data = salary_potential) +
+  geom_point()
+```
+
+Do stem majors say that they make the world better?
+```{r}
+ggplot(aes(stem_percent, make_world_better_percent), data = salary_potential) +
+  geom_point()
+```
+
+
+
+Does high tuition pay off?
+```{r}
+# Combine the salary and tuition tables
+tuition_salary <- salary_potential %>%
+  left_join(tuition_cost, by = "name")
+
+# Remove 2 year degrees
+tuition_salary %>%
+  filter(degree_length != '2 year') %>%
+  ggplot() +
+  geom_point(aes(out_of_state_tuition, early_career_pay), data = tuition_salary)
+```
+
+same graph again but visualize by cost of living
+
+
+
