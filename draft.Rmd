@@ -22,6 +22,8 @@ salary_potential <- readr::read_csv('https://raw.githubusercontent.com/rfordatas
 historical_tuition <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/historical_tuition.csv')
 
 diversity_school <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-10/diversity_school.csv')
+
+cost_of_living <- read_csv('data/cost_of_living.csv')
 ```
 
 
@@ -56,5 +58,18 @@ tuition_salary %>%
 
 same graph again but visualize by cost of living
 
+```{r}
+# add in cost of living based on state
+salary_col <- tuition_salary %>%
+  left_join(cost_of_living, by = c('state' = 'State'))
+
+ggplot() +
+  geom_point(aes(out_of_state_tuition, early_career_pay, col = cost_index), data = salary_col) +
+  scale_color_gradient(low = "#000099", high = "#CC0000")
+```
+
+```{r}
+
+```
 
 
