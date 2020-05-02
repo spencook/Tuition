@@ -60,6 +60,7 @@ same graph again but visualize by cost of living
 
 ```{r}
 # add in cost of living based on state
+# make this in tableau
 salary_col <- tuition_salary %>%
   left_join(cost_of_living, by = c('state' = 'State'))
 
@@ -68,8 +69,13 @@ ggplot() +
   scale_color_gradient(low = "#000099", high = "#CC0000")
 ```
 
-```{r}
 
+
+# Lets look at how much tuition prices are raising
+
+```{r}
+ggplot(data = historical_tuition) +
+  geom_point(aes(year, tuition_cost))
 ```
 
 
